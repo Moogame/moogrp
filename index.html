@@ -1,0 +1,3362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MOO-GAME </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"/>
+  <style>
+    .swiper {
+      width: 100%;
+      height: 100%;
+    }
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Clickable product images and titles */
+    .cursor-pointer:hover {
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .cursor-pointer.hover\:underline {
+      text-decoration: none;
+    }
+    .cursor-pointer.hover\:underline:hover {
+      text-decoration: underline;
+      color: #dc2626;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<!-- Header / Navigation Bar -->
+<header class="bg-white shadow-md sticky top-0 z-50">
+  <!-- Top Bar -->
+  <div class="bg-gray-900 text-white py-2 px-4 text-sm">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <div class="flex space-x-4">
+        <span><i class="fas fa-phone-alt mr-1"></i> +250 795 121 905</span>
+        <span><i class="fas fa-envelope mr-1"></i> moogameltd@gmail.com</span>
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="hover:text-red-400"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-red-400"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-red-400"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Main Navigation -->
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between py-4">
+      <!-- Logo -->
+      <div class="text-3xl font-bold text-red-600">
+        <a href="index3.html" class="flex items-center">
+          <img src="mogame.png" alt="Logo" class="w-12 h-12">
+          <span>MOO-GAME</span>
+        </a>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="flex-1 max-w-2xl mx-8">
+        <div class="relative">
+          <input type="text" placeholder="Search products, devices or games..." 
+                 class="w-full border border-gray-300 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-red-500">
+          <button class="absolute right-0 top-0 h-full px-6 text-white bg-red-600 rounded-r-full hover:bg-red-700">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Navigation Icons -->
+      <div class="flex items-center space-x-6">
+        <a href="#" class="text-gray-700 hover:text-red-600 relative group">
+          <div class="text-2xl">
+            <i class="far fa-user"></i>
+          </div>
+          <span class="text-xs block text-center mt-1">Account</span>
+          <div class="absolute hidden group-hover:block bg-white shadow-lg rounded p-4 w-48 -left-16 top-full mt-2">
+            <a href="#" class="block py-1 hover:text-red-600">Login</a>
+            <a href="#" class="block py-1 hover:text-red-600">Register</a>
+            <a href="#" class="block py-1 hover:text-red-600">Orders</a>
+          </div>
+        </a>
+        
+        <a href="#" class="text-gray-700 hover:text-red-600 relative group">
+          <div class="text-2xl relative">
+            <i class="far fa-heart"></i>
+            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+          </div>
+          <span class="text-xs block text-center mt-1">Wishlist</span>
+        </a>
+        
+        <a href="#" id="cart-trigger" class="text-gray-700 hover:text-red-600 relative group">
+          <div class="text-2xl relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+          </div>
+          <span class="text-xs block text-center mt-1">Cart</span>
+          <div class="absolute hidden group-hover:block bg-white shadow-lg rounded p-4 w-80 -right-10 top-full mt-2">
+            <div id="cart-dropdown" class="max-h-60 overflow-y-auto">
+              <p class="text-center py-4 text-gray-600">Your cart is empty</p>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-sm">
+              <span class="text-gray-700 font-semibold">Total:</span>
+              <span id="cart-total" class="text-gray-900 font-bold">$0.00</span>
+            </div>
+            <a href="#" class="block text-center bg-red-600 text-white py-2 rounded hover:bg-red-700 mt-3">Checkout</a>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Category Navigation -->
+    <nav class="border-t border-gray-200">
+      <ul class="flex space-x-8 py-3">
+        <li class="group relative">
+          <a href="#" class="flex items-center text-gray-700 hover:text-red-600 font-medium">
+            <i class="fas fa-bars mr-2"></i> All Categories
+          </a>
+          <!-- Mega Menu -->
+          <div class="absolute left-0 w-64 bg-white shadow-lg z-50 hidden group-hover:block py-2">
+            <a href="#gaming-consoles" data-section="gaming-consoles" class="block px-4 py-2 hover:bg-gray-100 nav-link">Gaming Consoles</a>
+            <a href="#pc-games" data-section="pc-games" class="block px-4 py-2 hover:bg-gray-100 nav-link">PC Games</a>
+            <a href="#mobile-games" data-section="mobile-games" class="block px-4 py-2 hover:bg-gray-100 nav-link">Mobile Games</a>
+            <a href="#accessories" data-section="accessories" class="block px-4 py-2 hover:bg-gray-100 nav-link">Accessories</a>
+            <a href="#gaming-chairs" data-section="gaming-chairs" class="block px-4 py-2 hover:bg-gray-100 nav-link">Gaming Chairs</a>
+            <a href="#vr-headsets" data-section="vr-headsets" class="block px-4 py-2 hover:bg-gray-100 nav-link">VR Headsets</a>
+          </div>
+        </li>
+        <li><a href="#hero" class="text-gray-700 hover:text-red-600 font-medium nav-link" data-section="hero">Home</a></li>
+        <li><a href="#new-arrivals" class="text-gray-700 hover:text-red-600 font-medium nav-link" data-section="new-arrivals">New Arrivals</a></li>
+        <li><a href="#deals" class="text-gray-700 hover:text-red-600 font-medium nav-link" data-section="deals">Deals</a></li>
+        <li><a href="#pre-orders" class="text-gray-700 hover:text-red-600 font-medium nav-link" data-section="pre-orders">Pre-orders</a></li>
+        <li><a href="#contact" class="text-gray-700 hover:text-red-600 font-medium nav-link" data-section="contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- Image Navigation Buttons (AliExpress-style) -->
+<section class="px-4 mt-4">
+  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow p-4">
+    <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4">
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="mouse.jpg" alt="Mice" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Mice</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="adapter.jpg" alt="Adapters" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Adapters</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="cable.jpg" alt="Cables" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Cables</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="ecouter.png.jpg" alt="Headsets" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Headsets</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="box.jpg" alt="Consoles" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Consoles</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="multidisplay.jpg" alt="Displays" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Displays</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="ralonge.jpg" alt="Extenders" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Extenders</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="tv.jpg" alt="TV & Video" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">TV & Video</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="imbuto game.jpg" alt="Games" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Games</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="minipici.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Mini PCs</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="spin game.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Spin Game</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="moospin.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Moospin</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="box package.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">Box Package</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="home2.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">MOOGAME</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="dash3.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">HEADPHONE</span>
+      </a>
+      <a href="#new-arrivals" data-section="new-arrivals" class="group nav-link flex flex-col items-center">
+        <div class="w-16 h-16 rounded-full overflow-hidden ring-1 ring-gray-200 group-hover:ring-red-500 transition">
+          <img src="spin game.jpg" alt="Mini PCs" class="w-full h-full object-cover">
+        </div>
+        <span class="mt-2 text-xs text-gray-700 group-hover:text-red-600 text-center truncate w-20">SPIN GAME</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- More to Explore -->
+<section id="more-products" class="py-10 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">More to Explore</h2>
+      <a href="#browse" class="text-red-600 hover:underline">See more</a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
+      <!-- Card A -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="24.90" data-rating="4.2" data-brand="Moogame">
+        <div class="relative">
+          <img src="adapter.jpg" alt="USB Adapter" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+          <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$1 OFF Coupon</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">High-Speed USB Adapter</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">10,000rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <!-- Card B -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="14.99" data-rating="4.1" data-brand="PixelView">
+        <div class="relative">
+          <img src="cable.jpg" alt="Charging Cable" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">Fast Charging Cable</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">3,000rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card C -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="69.00" data-rating="4.5" data-brand="HyperSound">
+        <div class="relative">
+          <img src="ecouter.png.jpg" alt="Gaming Headset" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">Gaming HEADPHONE</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+            
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">10,000rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!--card e-->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="24.90" data-rating="4.2" data-brand="Moogame">
+        <div class="relative">
+          <img src="box package.jpg" alt="USB Adapter" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+          <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$1 OFF Coupon</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">BOX</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">250,000rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card D -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="9.99" data-rating="3.8" data-brand="Moogame">
+        <div class="relative">
+          <img src="ralonge.jpg" alt="HDMI Adapter" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">EXTENDER</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">10,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card E -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="119.00" data-rating="4.6" data-brand="Moogame">
+        <div class="relative">
+          <img src="mouse.jpg" alt="Wireless Mouse Pro" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">Wireless Mouse Pro</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+        
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">5,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card F -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="39.00" data-rating="4.0" data-brand="PixelView">
+        <div class="relative">
+          <img src="multidisplay.jpg" alt="Display Hub" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">Converter </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+        
+          </div>
+          <div class="flex justify-between items-center">
+  <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">5,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <!-- Card G -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="449.00" data-rating="4.7" data-brand="Moogame">
+        <div class="relative">
+          <img src="tv.jpg" alt="Smart TV" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">TV </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+  <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">130,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+           <!-- Card E -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="119.00" data-rating="4.6" data-brand="Moogame">
+        <div class="relative">
+          <img src="keyboard.jpg" alt="Keyboard" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">Keyboard</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+        
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">30,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card F -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="39.00" data-rating="4.0" data-brand="PixelView">
+        <div class="relative">
+          <img src="spin game.jpg" alt="Display Hub" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">SPIN GAME </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+        
+          </div>
+          <div class="flex justify-between items-center">
+  
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+
+        </div>
+      </div>
+      <!-- Card G -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="449.00" data-rating="4.7" data-brand="Moogame">
+        <div class="relative">
+          <img src="imbuto game.jpg" alt="Smart TV" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">IMBUTO GAME </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+ 
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+          
+        </div>
+      </div>
+      <!-- Card H -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="259.00" data-rating="4.4" data-brand="Moogame">
+        <div class="relative">
+          <img src="minipici.jpg" alt="Mini PC" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 line-clamp-2">MINI PC </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+  <div class="flex items-baseline space-x-2"><span class="text-red-600 font-bold">300,000 rwf</span></div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Hero Section with Sidebar -->
+<section id="hero" class="my-4 px-4 section">
+  <div class="max-w-7xl mx-auto md:flex gap-4">
+    <!-- Left Sidebar Categories (desktop) -->
+    <aside class="hidden md:block md:w-1/4">
+      <div class="bg-white rounded-lg shadow divide-y">
+        <a href="#gaming-consoles" data-section="gaming-consoles" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-gamepad mr-2 text-red-600"></i> Gaming Consoles</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+        <a href="#pc-games" data-section="pc-games" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-desktop mr-2 text-blue-600"></i> PC Games</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+        <a href="#mobile-games" data-section="mobile-games" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-mobile-alt mr-2 text-green-600"></i> Mobile Games</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+        <a href="#accessories" data-section="accessories" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-headphones mr-2 text-yellow-600"></i> Accessories</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+        <a href="#gaming-chairs" data-section="gaming-chairs" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-chair mr-2 text-purple-600"></i> Gaming Chairs</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+        <a href="#vr-headsets" data-section="vr-headsets" class="flex items-center justify-between px-4 py-3 hover:bg-gray-50 nav-link">
+          <span class="flex items-center"><i class="fas fa-vr-cardboard mr-2 text-indigo-600"></i> VR Headsets</span>
+          <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Hero Slider -->
+    <div class="md:w-3/4">
+  <div class="swiper heroSwiper rounded-lg overflow-hidden">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide relative">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" class="w-full h-20 md:h-20 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4">Find the Best Gaming Devices & Games!</h1>
+          <p class="text-lg mb-6">Discover our exclusive collection of gaming consoles, accessories, and games</p>
+          <button class="bg-red-600 px-8 py-3 rounded hover:bg-red-700 font-bold text-lg">Shop Now</button>
+        </div>
+      </div>
+      <div class="swiper-slide relative">
+         <img src="home2.jpg" alt="PS4 Pro" class="w-full h-20   object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4">s!</h1>
+          <p class="text-lg mb-6"></p>
+          <button href="#new-arrivals" class="bg-red-600 px-8 py-3 rounded hover:bg-red-700 font-bold text-lg">View Deals</button>
+        </div>
+      </div>
+       <div class="swiper-slide relative">
+         <img src="home 3.jpg" alt="PS4 Pro" class="w-full h-20 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4"></h1>
+          <p class="text-lg mb-6">Our Services</p>
+          <button href="#new-arrivals" class="bg-red-600 px-8 py-3 rounded hover:bg-red-700 font-bold text-lg">View Deals</button>
+        </div>
+      </div>
+       <div class="swiper-slide relative">
+         <img src="dash3.jpg" alt="PS4 Pro" class="w-full h-20 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4"></h1>
+          <p class="text-lg mb-6">Our Services</p>
+          <button href="#new-arrivals" class="bg-red-600 px-8 py-3 rounded hover:bg-red-700 font-bold text-lg">View Deals</button>
+        </div>
+      </div>
+       <div class="swiper-slide relative">
+         <img src="home2.jpg" alt="PS4 Pro" class="w-full h-20 object-cover">
+        <div class="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 class="text-3xl md:text-5xl font-bold mb-4">Our Services!</h1>
+          <p class="text-lg mb-6"></p>
+          <button href="#new-arrivals" class="bg-red-600 px-8 py-3 rounded hover:bg-red-700 font-bold text-lg">View Deals</button>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next text-white"></div>
+    <div class="swiper-button-prev text-white"></div>
+  </div>
+    </div>
+  </div>
+</section>
+
+<!-- Flash Deals Strip -->
+<section class="px-4 mb-6">
+  <div class="max-w-7xl mx-auto bg-white rounded-lg shadow p-4">
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center space-x-3">
+        <span class="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">FLASH DEALS</span>
+        <span class="text-gray-700 font-semibold">Ends in 
+          <span class="text-red-600" id="flash-hours">00</span>:
+          <span class="text-red-600" id="flash-minutes">00</span>:
+          <span class="text-red-600" id="flash-seconds">00</span>
+        </span>
+      </div>
+      <a href="#deals" data-section="deals" class="text-red-600 text-sm hover:underline nav-link">View all</a>
+    </div>
+    <div class="flex gap-4 overflow-x-auto no-scrollbar">
+      <div class="min-w-[180px] max-w-[180px] bg-gray-50 rounded-lg border p-3">
+        <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?auto=format&fit=crop&w=400&q=60" class="w-full h-28 object-cover rounded mb-2">
+        <div class="text-sm text-gray-700 line-clamp-2 mb-1">Moogame Pro Console</div>
+        <div class="flex items-baseline space-x-2 mb-1">
+          <span class="text-red-600 font-bold">$299.99</span>
+          <span class="text-gray-400 line-through text-xs">$349.99</span>
+          <span class="text-green-600 text-xs font-semibold">-14%</span>
+        </div>
+        <div class="w-full h-1.5 bg-gray-200 rounded">
+          <div class="h-1.5 bg-red-500 rounded" id="flash-stock-1" style="width: 65%"></div>
+        </div>
+        <div class="text-[11px] text-gray-500 mt-1"><span id="flash-sold-1">120</span> sold</div>
+      </div>
+      <div class="min-w-[180px] max-w-[180px] bg-gray-50 rounded-lg border p-3">
+        <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=60" class="w-full h-28 object-cover rounded mb-2">
+        <div class="text-sm text-gray-700 line-clamp-2 mb-1">Pro Gaming Headset</div>
+        <div class="flex items-baseline space-x-2 mb-1">
+          <span class="text-red-600 font-bold">$89.99</span>
+          <span class="text-gray-400 line-through text-xs">$119.99</span>
+          <span class="text-green-600 text-xs font-semibold">-25%</span>
+        </div>
+        <div class="w-full h-1.5 bg-gray-200 rounded">
+          <div class="h-1.5 bg-red-500 rounded" id="flash-stock-2" style="width: 35%"></div>
+        </div>
+        <div class="text-[11px] text-gray-500 mt-1"><span id="flash-sold-2">58</span> sold</div>
+      </div>
+      <!-- More flash items as needed -->
+    </div>
+  </div>
+  <style>
+    .no-scrollbar::-webkit-scrollbar{ display:none; }
+    .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
+  </style>
+  
+</section>
+
+<!-- Categories Section -->
+<section class="py-8 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Shop by Category</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Gaming Consoles -->
+      <a href="#gaming-consoles" data-section="gaming-consoles" class="group bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 hover:shadow-xl transition-all duration-300 nav-link border border-red-200 hover:border-red-400">
+        <div class="bg-red-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-red-300 transition-colors">
+          <i class="fas fa-gamepad text-3xl text-red-600"></i>
+        </div>
+        <h3 class="font-bold text-xl text-gray-800 mb-3">🎮 Gaming Consoles</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><i class="fas fa-check text-red-600 mr-2"></i> PlayStation, Xbox, Nintendo Switch</li>
+          <li><i class="fas fa-check text-red-600 mr-2"></i> High-quality graphics and exclusive titles</li>
+          <li><i class="fas fa-check text-red-600 mr-2"></i> Plug-and-play experience</li>
+          <li><i class="fas fa-check text-red-600 mr-2"></i> Great for home entertainment</li>
+        </ul>
+      </a>
+
+      <!-- PC Games -->
+      <a href="#pc-games" data-section="pc-games" class="group bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 hover:shadow-xl transition-all duration-300 nav-link border border-blue-200 hover:border-blue-400">
+        <div class="bg-blue-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-300 transition-colors">
+          <i class="fas fa-desktop text-3xl text-blue-600"></i>
+        </div>
+        <h3 class="font-bold text-xl text-gray-800 mb-3">💻 PC Games</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><i class="fas fa-check text-blue-600 mr-2"></i> Designed for desktop and laptop gaming</li>
+          <li><i class="fas fa-check text-blue-600 mr-2"></i> Supports powerful graphics and mods</li>
+          <li><i class="fas fa-check text-blue-600 mr-2"></i> Wide range of game genres</li>
+          <li><i class="fas fa-check text-blue-600 mr-2"></i> Ideal for professional or hardcore gamers</li>
+        </ul>
+      </a>
+
+      <!-- Mobile Games -->
+      <a href="#mobile-games" data-section="mobile-games" class="group bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 hover:shadow-xl transition-all duration-300 nav-link border border-green-200 hover:border-green-400">
+        <div class="bg-green-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-green-300 transition-colors">
+          <i class="fas fa-mobile-alt text-3xl text-green-600"></i>
+        </div>
+        <h3 class="font-bold text-xl text-gray-800 mb-3">📱 Mobile Games</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><i class="fas fa-check text-green-600 mr-2"></i> Playable on smartphones and tablets</li>
+          <li><i class="fas fa-check text-green-600 mr-2"></i> Easy to download and play anywhere</li>
+          <li><i class="fas fa-check text-green-600 mr-2"></i> Includes popular titles like PUBG, Free Fire</li>
+          <li><i class="fas fa-check text-green-600 mr-2"></i> Great for casual and social gaming</li>
+        </ul>
+      </a>
+
+      <!-- Accessories -->
+      <a href="#accessories" data-section="accessories" class="group bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-6 hover:shadow-xl transition-all duration-300 nav-link border border-yellow-200 hover:border-yellow-400">
+        <div class="bg-yellow-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-300 transition-colors">
+          <i class="fas fa-headphones text-3xl text-yellow-600"></i>
+        </div>
+        <h3 class="font-bold text-xl text-gray-800 mb-3">🖱️ Accessories</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><i class="fas fa-check text-yellow-600 mr-2"></i> Includes controllers, keyboards, headsets, mice</li>
+          <li><i class="fas fa-check text-yellow-600 mr-2"></i> Improves comfort and performance</li>
+          <li><i class="fas fa-check text-yellow-600 mr-2"></i> Enhances sound and control precision</li>
+          <li><i class="fas fa-check text-yellow-600 mr-2"></i> Complements all gaming setups</li>
+        </ul>
+      </a>
+
+      
+
+      <!-- VR Headsets -->
+      <a href="#vr-headsets" data-section="vr-headsets" class="group bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-6 hover:shadow-xl transition-all duration-300 nav-link border border-indigo-200 hover:border-indigo-400">
+        <div class="bg-indigo-200 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-indigo-300 transition-colors">
+          <i class="fas fa-vr-cardboard text-3xl text-indigo-600"></i>
+        </div>
+        <h3 class="font-bold text-xl text-gray-800 mb-3">🥽 VR Headsets</h3>
+        <ul class="text-sm text-gray-600 space-y-2">
+          <li><i class="fas fa-check text-indigo-600 mr-2"></i> Immersive 3D virtual reality experience</li>
+          <li><i class="fas fa-check text-indigo-600 mr-2"></i> Supports motion and head tracking</li>
+          <li><i class="fas fa-check text-indigo-600 mr-2"></i> Compatible with popular VR games</li>
+          <li><i class="fas fa-check text-indigo-600 mr-2"></i> Brings futuristic gameplay to life</li>
+        </ul>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Gaming Consoles Grid -->
+<section id="gaming-consoles" class="py-12 px-4 bg-gray-50 section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-red-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">🎮 Gaming Consoles</h2>
+      </div>
+      <a href="#gaming-consoles" data-section="gaming-consoles" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="PlayStation 5" class="w-full h-48 object-cover cursor-pointer">
+          <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1 cursor-pointer">PlayStation </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+         
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+         <img src="nintendo.jpg" alt="Nintendo Switch" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Nintendo Switch Poster</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+            
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+       
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+         <img src="xbox.jpg" alt="Xbox Series X" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">TOP</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Xbox Series X</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+         
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="station.jpg" alt="PS4 Pro" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded">SALE</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">PlayStation </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+            
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+          >
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="handheld.jpg" alt="PS4 Pro" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Xbox Series S</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+         
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PC Games Grid -->
+<section id="pc-games" class="py-12 px-4 bg-white section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-blue-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">💻 PC Games</h2>
+      </div>
+      <a href="#pc-games" data-section="pc-games" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="sport2.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">EA SPORT FC26</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="speed2.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">SPEEDSTORM</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+          
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="grid5.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">OFF THE GRID</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            
+
+          </div>
+        
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+       <img src="asphalt.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">TOP</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">ASPHALT LEGENDS</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+     <img src="spin game.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">SPIN GAME</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+        
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="imbuto game.jpg" alt="Cyberpunk 2077" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">IMBUTO GAME</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Mobile Games Grid -->
+<section id="mobile-games" class="py-12 px-4 bg-gray-50 section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-green-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">📱 Mobile Games</h2>
+      </div>
+      <a href="#mobile-games" data-section="mobile-games" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="ea.jpg" alt="EA Sports FC Mobile 26 (FIFA Soccer)" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">POPULAR</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> EA Sports FC Mobile 26 (FIFA Soccer)</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+         <img src="ea.jpg" alt="EA Sports FC Mobile 26 (FIFA Soccer)" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-orange-600 text-white text-xs font-bold px-2 py-1 rounded">TOP</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"></h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+          
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="ea.jpg" alt="EA Sports FC Mobile 26 (FIFA Soccer)" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Genshin Impact</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+          
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="ea.jpg" alt="EA Sports FC Mobile 26 (FIFA Soccer)" class="w-full h-48 object-cover">
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Mobile Legends</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+        
+        </div>
+    
+      
+        
+        </div>
+      </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="ea.jpg" alt="EA Sports FC Mobile 26 (FIFA Soccer)" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Clash of Clans</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Accessories Grid -->
+<section id="accessories" class="py-12 px-4 bg-white section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-yellow-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">🖱️ Accessories</h2>
+      </div>
+      <a href="#accessories" data-section="accessories" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Headset" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Pro Gaming Headset</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+         
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mechanical Keyboard" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Mechanical Keyboard</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+         
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Mouse" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">RGB Gaming Mouse</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+             
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+        <img src="gamepad.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Wireless Gamepad</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+            
+          </div>
+       
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="accessoire.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+         <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="a1.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+         <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="a2.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"></h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+         <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="a3.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+         <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="a3.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+            
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="a4.jpg" alt="Mouse Pad" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1"> </h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+             
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Gaming Chairs Grid
+<section id="gaming-chairs" class="py-12 px-4 bg-gray-50 section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-purple-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">🪑 Gaming Chairs</h2>
+      </div>
+      <a href="#gaming-chairs" data-section="gaming-chairs" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1637775297509-19767f7fc144?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Ergonomic Chair" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded">BEST</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Ergonomic Gaming Chair</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(567)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">250,000 rwf</span>
+              <span class="text-gray-400 line-through text-xs ml-1">300,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Racing Chair" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Racing Style Chair</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(443)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">200,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1607853202273-797f1c22a38e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Premium Chair" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Premium Reclining Chair</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(289)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">350,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Gaming Throne" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Gaming Throne Deluxe</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(178)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">450,000 rwf</span>
+              <span class="text-gray-400 line-through text-xs ml-1">550,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1637775297509-19767f7fc144?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Compact Chair" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Compact Gaming Chair</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(234)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">180,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Mesh Chair" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Breathable Mesh Chair</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+            <span class="text-gray-500 text-xs ml-1">(156)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <span class="text-red-600 font-bold">220,000 rwf</span>
+            </div>
+          </div>
+          <button class="w-full bg-purple-600 text-white px-3 py-2 rounded hover:bg-purple-700 text-sm mt-2">
+            <i class="fas fa-cart-plus"></i> Add
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- VR Headsets Grid -->
+<section id="vr-headsets" class="py-12 px-4 bg-white section">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex items-center gap-3">
+        <div class="bg-indigo-600 w-1 h-8 rounded-full"></div>
+        <h2 class="text-2xl font-bold text-gray-800">🥽 VR Headsets</h2>
+      </div>
+      <a href="#vr-headsets" data-section="vr-headsets" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="vr1.jpg" alt="Meta Quest 3" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-indigo-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Meta Quest 3 VR</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+         
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              
+            </div>
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="vr2.jpg" alt="PlayStation VR2" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">PlayStation VR2</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+          
+          </div>
+          <div class="flex justify-between items-center">
+          
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="vr3.jpg" alt="Valve Index" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Valve Index VR</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+        
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+        
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="vr4.jpg" alt="Pico 4" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Pico 4 VR Headset</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+           
+          </div>
+          <div class="flex justify-between items-center">
+           
+          </div>
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          
+        </div>
+        <div class="p-4">
+      
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+           
+         
+        </div>
+      </div>
+      <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="vr6.jpg" alt="Oculus Rift" class="w-full h-48 object-cover">
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-sm mb-1">Oculus Rift S</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-xs">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+            </div>
+            
+          </div>
+          
+       
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="py-8 px-4 bg-gray-50">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Featured Products</h2>
+      <a href="#new-arrivals" data-section="new-arrivals" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
+      <!-- Product Card 1 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="home2.jpg" alt="Gaming Console" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+          <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$5 OFF Coupon</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1">GAMES</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400">
+              <i class="fas fa-star">spin</i>
+              <i class="fas fa-star">imbuto</i>
+              <i class="fas fa-star">PLINKO</i>
+              <i class="fas fa-star">AVIATOR</i>
+              
+            </div>
+            
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+           
+              <span class="text-green-600 text-xs font-semibold">-14%</span>
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+          <div class="flex items-center gap-2 mt-2">
+           
+            <span class="text-xs text-orange-600">Top Selling</span>
+            <span class="text-xs text-gray-500">Moogame Brand</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group">
+        <div class="relative">
+          <img src="sport1" alt="Gaming Console" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+          <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$3 OFF Coupon</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1">PLAYSTATION</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400">
+              <i class="fas fa-star">EA SPORTS FC 26</i>
+              <i class="fas fa-star">SPEEDSTORM</i>
+              <i class="fas fa-star">OFF THE GRID</i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+         
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+           
+            </div>
+            <!-- <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button> -->
+          </div>
+          <div class="flex items-center gap-2 mt-2">
+        
+            <span class="text-xs text-orange-600">Top Selling</span>
+            <span class="text-xs text-gray-500">Moogame Brand</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Add more product cards as needed -->
+    </div>
+  </div>
+</section>
+
+<!-- New Arrivals Section -->
+<section id="new-arrivals" class="py-12 bg-white section">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-2xl font-bold text-gray-800">New Arrivals</h2>
+      <a href="#new-arrivals" data-section="new-arrivals" class="text-red-600 hover:underline flex items-center nav-link">
+        View All <i class="fas fa-arrow-right ml-1 text-sm"></i>
+      </a>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-6 gap-6">
+      <!-- Product 1 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="box package.jpg" alt="PlayStation 5 Slim" class="w-full h-48 object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">BOX</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">250,000 rwf</span>
+             
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+       
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="adapter.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">ADAPTER</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">10,000 rwf</span>
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+        
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="mouse.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">MOUSE</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">5,000 rwf</span>
+              
+           
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+      
+      <!-- Product 31 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="minipici.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">MINIPICI</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">300,000 rwf</span>
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+      
+      <!-- Product 3.2 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="cable.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer"> POWER CABLE</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">3,000 rwf</span>
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+      
+      <!-- Product 3.3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="ecouter.png.jpg" alt="Adapters" class="w-full h-full object-cover">
+          
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">HEADPHONE</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">6,000 RWF-85,000 RWF</span>
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+      <!-- Product 3.3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="keyboard.jpg" alt="Adapters" class="w-full h-full object-cover">
+          
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">KEYBOARD</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">30,000RWF</span>
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+    
+      <!-- Product 4 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="multidisplay.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">VGA CONVERTER</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">5,000 rwf</span>
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="tv.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">TV</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">13,000 rwf</span>
+              
+    
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+       
+        </div>
+      </div>
+
+      <!-- Product 6 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="ralonge.jpg" alt="Adapters" class="w-full h-full object-cover">
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">MULTISOCKET</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            <span class="text-red-600 font-bold">10,000 rwf</span>
+              
+    
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+
+        </div>
+      </div>
+           <!-- Product 3.3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="imbuto game.jpg" alt="Adapters" class="w-full h-full object-cover">
+          
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">IMBUTO GAMES</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+           <!-- Product 3.3 -->
+      <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer">
+        <div class="relative">
+          <img src="spin game.jpg" alt="Adapters" class="w-full h-full object-cover">
+          
+          <div class="absolute top-2 right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-semibold text-lg mb-1 cursor-pointer">SPIN GAMES</h3>
+          <div class="flex items-center mb-2">
+            <div class="text-yellow-400 text-sm">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <div class="flex items-baseline space-x-2">
+            
+              
+              
+            </div>
+            <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm">
+              <i class="fas fa-cart-plus"></i> Add
+            </button>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</section>
+
+<!-- Deals Section -->
+<section id="deals" class="py-12 bg-gray-50 section">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-bold text-gray-800 mb-2">Hot Deals</h2>
+      <p class="text-gray-600">Limited time offers on your favorite products</p>
+      <div class="flex justify-center mt-4" id="countdown">
+        <div class="bg-red-600 text-white px-4 py-2 rounded mx-1">
+          <span id="days">00</span> <span class="text-xs">Days</span>
+        </div>
+        <div class="bg-red-600 text-white px-4 py-2 rounded mx-1">
+          <span id="hours">00</span> <span class="text-xs">Hrs</span>
+        </div>
+        <div class="bg-red-600 text-white px-4 py-2 rounded mx-1">
+          <span id="minutes">00</span> <span class="text-xs">Min</span>
+        </div>
+        <div class="bg-red-600 text-white px-4 py-2 rounded mx-1">
+          <span id="seconds">00</span> <span class="text-xs">Sec</span>
+        </div>
+      </div>
+    </div>
+    <!-- Add deal products here -->
+  </div>
+</section>
+
+<!-- Pre-orders Section
+<section id="pre-orders" class="py-12 bg-white section">
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">Upcoming Releases</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Pre-order item 1 -->
+      <!-- <div class="bg-gray-50 rounded-lg p-6 text-center">
+        <div class="bg-white p-4 rounded-lg shadow mb-4">
+          <img src="images/box.jpg" class="w-full h-64 object-cover rounded" alt="Game">
+        </div>
+        <h3 class="text-xl font-semibold mb-2">Epic Adventure 2024</h3>
+        <p class="text-gray-600 mb-4">Release Date: December 15, 2024</p>
+        <button class="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 w-full">
+          Pre-order Now
+        </button>
+      </div>
+      <!-- Add more pre-order items -->
+    <!-- </div>
+  </div>
+</section> --> 
+
+<!-- Contact Section -->
+<section id="contact" class="py-12 bg-gray-50 section">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+      <div class="md:flex">
+        <div class="md:w-1/2 bg-red-600 text-white p-8">
+          <h2 class="text-2xl font-bold mb-6">Contact Us</h2>
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Address</h3>
+            <p>Nyamirambo, Kigali, Rwanda</p>
+          </div>
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Email</h3>
+            <p>moogameltd@gmail.com</p>
+          </div>
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-2">Phone</h3>
+            <p>+250 795121905</p>
+          </div>
+          <div class="flex space-x-4">
+                      <a href="https://l.instagram.com/?u=https%3A%2F%2Fwa.me%2F250790581058%3Ftext%3DChat%2BWith%2BMoo%2BGame%26fbclid%3DPAZXh0bgNhZW0CMTEAAaezd0BoTaQbuS7AhT-pj_PId80s0fK8VL8yolCk4JkvNjIg9TyoGsGicpjB_w_aem_0gHZy68Vj_lR-gITfLML7w&e=AT2A-Go-PFpmdJJ0fFuOCKJ8OkjASOLLzvHWx4x1oc5cD5Xx9E2rcDXX3y9Dnkf-ZfhiMu8Z_k2MtbBa6Cr7Uf2MP6o8a4jEHeJqDC_pK3-NSzgF3Lze9UCtFw" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+
+          <a href="https://l.instagram.com/?u=https%3A%2F%2Fwa.me%2F250790581058%3Ftext%3DChat%2BWith%2BMoo%2BGame%26fbclid%3DPAZXh0bgNhZW0CMTEAAaezd0BoTaQbuS7AhT-pj_PId80s0fK8VL8yolCk4JkvNjIg9TyoGsGicpjB_w_aem_0gHZy68Vj_lR-gITfLML7w&e=AT2A-Go-PFpmdJJ0fFuOCKJ8OkjASOLLzvHWx4x1oc5cD5Xx9E2rcDXX3y9Dnkf-ZfhiMu8Z_k2MtbBa6Cr7Uf2MP6o8a4jEHeJqDC_pK3-NSzgF3Lze9UCtFw" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtu.be/RN5F0VY6tv4?list=RDRN5F0VY6tv4" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <!-- <div class="md:w-1/2 p-8"> -->
+          <!-- <h3 class="text-xl font-semibold mb-6">Send us a Message</h3> -->
+          <!-- <form>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+              <input class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" id="name" type="text" placeholder="Your name">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+              <input class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" id="email" type="email" placeholder="Your email">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2" for="message">Message</label>
+              <textarea class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500" id="message" rows="4" placeholder="Your message"></textarea>
+            </div>
+            <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 w-full">
+              Send Message
+            </button>
+          </form> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Promotions Section -->
+<!-- <section class="py-8 px-4 bg-white">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Special Offers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-gradient-to-r from-red-500 to-red-600 rounded-lg p-6 text-white">
+        <h3 class="text-xl font-bold mb-2">Summer Sale</h3>
+        <p class="mb-4">Up to 50% off on selected items</p>
+        <button class="bg-white text-red-600 px-4 py-2 rounded font-medium hover:bg-gray-100">Shop Now</button>
+      </div>
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg p-6 text-white">
+        <h3 class="text-xl font-bold mb-2">New Arrivals</h3>
+        <p class="mb-4">Discover the latest gaming gear</p>
+        <button class="bg-white text-blue-600 px-4 py-2 rounded font-medium hover:bg-gray-100">Explore</button>
+      </div>
+      <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-lg p-6 text-white">
+        <h3 class="text-xl font-bold mb-2">Bundle Deals</h3>
+        <p class="mb-4">Save more with our exclusive bundles</p>
+        <button class="bg-white text-green-600 px-4 py-2 rounded font-medium hover:bg-gray-100">View Bundles</button>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- Browse Products with Filters -->
+<section class="py-10 px-4 bg-gray-50">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
+    <!-- Filters Sidebar -->
+    <aside class="bg-white rounded-lg shadow p-4 h-max md:sticky md:top-24">
+      <h3 class="font-bold text-gray-800 mb-4">Filters</h3>
+      <div class="mb-5">
+        <h4 class="font-semibold text-sm text-gray-700 mb-2">Price</h4>
+        <div class="flex items-center gap-2">
+          <input id="filter-min" type="number" placeholder="Min" class="w-1/2 border rounded px-2 py-1">
+          <span class="text-gray-400">-</span>
+          <input id="filter-max" type="number" placeholder="Max" class="w-1/2 border rounded px-2 py-1">
+        </div>
+      </div>
+      <div class="mb-5">
+        <h4 class="font-semibold text-sm text-gray-700 mb-2">Rating</h4>
+        <div class="space-y-1 text-sm text-gray-700">
+          <label class="flex items-center gap-2"><input name="filter-rating" value="5" type="radio"> ★★★★★</label>
+          <label class="flex items-center gap-2"><input name="filter-rating" value="4" type="radio"> ★★★★ & up</label>
+          <label class="flex items-center gap-2"><input name="filter-rating" value="3" type="radio"> ★★★ & up</label>
+          <label class="flex items-center gap-2"><input name="filter-rating" value="" type="radio" checked> Any</label>
+        </div>
+      </div>
+      <div class="mb-5">
+        <h4 class="font-semibold text-sm text-gray-700 mb-2">Brand</h4>
+        <div class="space-y-1 text-sm text-gray-700">
+          <label class="flex items-center gap-2"><input name="filter-brand" value="Moogame" type="checkbox"> Moogame</label>
+          <label class="flex items-center gap-2"><input name="filter-brand" value="HyperSound" type="checkbox"> HyperSound</label>
+          <label class="flex items-center gap-2"><input name="filter-brand" value="PixelView" type="checkbox"> PixelView</label>
+        </div>
+      </div>
+      <button id="filter-apply" class="w-full bg-red-600 text-white rounded py-2 hover:bg-red-700">Apply Filters</button>
+    </aside>
+
+    <!-- Products Grid -->
+    <div class="md:col-span-3">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">Browse Products</h2>
+        <select id="browse-sort" class="border rounded px-2 py-1 text-sm">
+          <option value="match">Best Match</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Top Rated</option>
+        </select>
+      </div>
+      <div id="browse-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <!-- Cards include data attributes for sorting: data-price and data-rating -->
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="19.99" data-rating="4.0" data-brand="Moogame">
+          <div class="relative">
+            <img src="mouse.jpg" alt="Wireless Gaming Mouse" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+          
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">Wireless Gaming Mouse RGB</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">5,000 rwf</span>
+               
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="299.99" data-rating="4.6" data-brand="Moogame">
+          <div class="relative">
+            <img src="box.jpg" alt="Moogame Pro Console" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-red-600 text-white text-xs font-bold px-2 py-1 rounded">HOT</div>
+            <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$10 OFF Coupon</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">BOX</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">250,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="89.99" data-rating="4.8" data-brand="HyperSound">
+          <div class="relative">
+            <img src="ecouter.png.jpg" alt="Pro Gaming Headset" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+            <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$3 OFF Coupon</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">Pro Gaming Headset 7.1</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+             
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">85,000 rwf</span>
+                
+             
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            <div class="flex items-center gap-2 mt-2"><span class="text-xs text-green-600">Free Shipping</span><span class="text-xs text-orange-600">Top Selling</span></div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="12.50" data-rating="3.9" data-brand="PixelView">
+          <div class="relative">
+            <img src="cable.jpg" alt="USB-C Cable" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">Powercable</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+              </div>
+            
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">3,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="59.00" data-rating="4.3" data-brand="PixelView">
+          <div class="relative">
+            <img src="multidisplay.jpg" alt="HDMI Splitter" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">CONVERTER</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">5,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="399.00" data-rating="4.7" data-brand="Moogame">
+          <div class="relative">
+            <img src="tv.jpg" alt="4K LED TV" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">TV</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">150,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+<div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="89.99" data-rating="4.8" data-brand="HyperSound">
+          <div class="relative">
+            <img src="spin game.jpg" alt="Pro Gaming Headset" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+            <div class="absolute bottom-2 left-2 bg-yellow-400 text-black text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition">$3 OFF Coupon</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">SPIN GAME</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+              </div>
+             
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                
+                
+             
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="12.50" data-rating="3.9" data-brand="PixelView">
+          <div class="relative">
+            <img src="imbuto game.jpg" alt="USB-C Cable" class="w-full h-48 object-cover">
+            <div class="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded">NEW</div>
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">IMBUTO GAME</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
+              </div>
+            
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">3,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="59.00" data-rating="4.3" data-brand="PixelView">
+          <div class="relative">
+            <img src="home2.jpg" alt="HDMI Splitter" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">GAMES</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+               
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="399.00" data-rating="4.7" data-brand="Moogame">
+          <div class="relative">
+            <img src="moospin.jpg" alt="4K LED TV" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">MOOGAME SPIN</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="399.00" data-rating="4.7" data-brand="Moogame">
+          <div class="relative">
+            <img src="keyboard.jpg" alt="4K LED TV" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">KEYBOARD</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">30,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+
+        <div class="bg-white rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow group" data-price="229.00" data-rating="4.4" data-brand="Moogame">
+          <div class="relative">
+            <img src="minipici.jpg" alt="Mini PC" class="w-full h-48 object-cover">
+          </div>
+          <div class="p-4">
+            <h3 class="font-semibold text-sm mb-1 line-clamp-2">MINI PC</h3>
+            <div class="flex items-center mb-2">
+              <div class="text-yellow-400 text-sm">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+              </div>
+              
+            </div>
+            <div class="flex justify-between items-center">
+              <div class="flex items-baseline space-x-2">
+                <span class="text-red-600 font-bold">300,000 rwf</span>
+                
+              </div>
+              <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-xs"><i class="fas fa-cart-plus"></i></button>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-6">
+        <button class="px-6 py-2 border rounded hover:bg-gray-100">Load more</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<!-- Product Quick View Modal -->
+<div id="product-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-3xl overflow-hidden">
+    <div class="flex justify-between items-center border-b px-4 py-3">
+      <h3 id="pm-title" class="text-lg font-semibold text-gray-800">Product</h3>
+      <button id="pm-close" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+    </div>
+    <div class="p-4 md:flex gap-6">
+      <div class="md:w-1/2">
+        <img id="pm-image" src="" alt="Product" class="w-full h-64 object-cover rounded">
+      </div>
+      <div class="md:w-1/2 mt-4 md:mt-0">
+        <div class="mb-2 flex items-baseline gap-2">
+          <span id="pm-price" class="text-red-600 font-bold text-xl">$0.00</span>
+          <span id="pm-old-price" class="text-gray-400 line-through text-sm hidden">$0.00</span>
+          <span id="pm-discount" class="text-green-600 text-xs font-semibold hidden">-0%</span>
+        </div>
+        <div id="pm-rating" class="text-yellow-400 text-sm mb-3 hidden">★★★★★</div>
+        <div class="mb-4">
+          <label class="block text-sm text-gray-700 mb-1">Quantity</label>
+          <div class="inline-flex items-center border rounded">
+            <button id="pm-qty-dec" class="px-3 py-1 text-gray-700">-</button>
+            <input id="pm-qty" type="number" value="1" min="1" class="w-16 text-center py-1 outline-none">
+            <button id="pm-qty-inc" class="px-3 py-1 text-gray-700">+</button>
+          </div>
+        </div>
+        <button id="pm-add" class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+  <div id="pm-overlay" class="absolute inset-0"></div>
+  <style>
+    /* ensure overlay clicks close modal but not inner content */
+    #product-modal > .bg-white { position: relative; z-index: 10; }
+  </style>
+  
+</div>
+
+<!-- Full Cart Modal -->
+<div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-3xl overflow-hidden">
+    <div class="flex justify-between items-center border-b px-4 py-3">
+      <h3 class="text-lg font-semibold text-gray-800">Your Cart</h3>
+      <button id="cm-close" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+    </div>
+    <div class="p-4 max-h-[60vh] overflow-y-auto" id="cm-items">
+      <!-- items injected here -->
+      <p class="text-center py-6 text-gray-600">Your cart is empty</p>
+    </div>
+    <div class="border-t px-4 py-3 flex items-center justify-between">
+      <div class="text-gray-700">Total: <span id="cm-total" class="font-bold text-gray-900">0 rwf</span></div>
+      <div class="space-x-2">
+        <button id="cm-clear" class="px-4 py-2 border rounded hover:bg-gray-100">Clear</button>
+        <button id="cm-checkout" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Checkout</button>
+      </div>
+    </div>
+  </div>
+  <div id="cm-overlay" class="absolute inset-0"></div>
+</div>
+
+<!-- Add-to-Cart Confirmation Panel -->
+<div id="add-confirm" class="fixed right-4 bottom-4 z-50 hidden">
+  <div class="bg-white shadow-2xl rounded-lg w-[380px] overflow-hidden animate-slide-in" style="box-shadow: 0 10px 40px rgba(0,0,0,0.15);">
+    <div class="bg-red-600 text-white px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i class="fas fa-check-circle text-lg"></i>
+        <span class="font-semibold">Added to cart successfully!</span>
+      </div>
+      <button id="ac-close" class="text-white hover:text-gray-200 text-xl font-bold leading-none" style="width: 24px; height: 24px; line-height: 1;">×</button>
+    </div>
+    <div class="p-4 bg-gray-50">
+      <div class="flex items-center bg-white rounded-lg p-3 shadow-sm">
+        <div class="w-20 h-20 bg-white rounded border overflow-hidden flex-shrink-0">
+          <img id="ac-image" src="" class="w-full h-full object-cover" alt="">
+        </div>
+        <div class="ml-3 min-w-0 flex-1">
+          <div id="ac-name" class="text-sm font-medium text-gray-800 line-clamp-2 leading-tight">Product name</div>
+          <div class="flex items-baseline gap-2 mt-2">
+            <span class="text-red-600 font-bold text-base"><span id="ac-price">0</span> rwf</span>
+            <span class="text-gray-400 text-xs">× <span id="ac-qty">1</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="px-4 pb-4 pt-2 flex items-center gap-2">
+      <button id="ac-continue" class="flex-1 px-4 py-2.5 border border-gray-300 rounded-md hover:bg-gray-50 text-sm font-medium text-gray-700 transition">
+        Continue shopping
+      </button>
+      <button id="ac-view" class="flex-1 px-4 py-2.5 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm font-medium transition flex items-center justify-center gap-1">
+        <i class="fas fa-shopping-cart text-xs"></i>
+        View cart
+      </button>
+    </div>
+  </div>
+  <style>
+    @keyframes slideIn { 
+      from { transform: translateX(100%); opacity: 0; } 
+      to { transform: translateX(0); opacity: 1; } 
+    }
+    .animate-slide-in { animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    #add-confirm .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</div>
+
+<!-- Product Detail Modal with Related Products -->
+<div id="product-detail-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-xl w-11/12 max-w-6xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div class="flex justify-between items-center border-b px-4 py-3 flex-shrink-0">
+      <h3 id="pd-title" class="text-lg font-semibold text-gray-800">Product Details</h3>
+      <button id="pd-close" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+    </div>
+    
+    <div class="overflow-y-auto flex-1 p-6">
+      <div class="md:flex gap-6 mb-8">
+        <div class="md:w-1/2">
+          <img id="pd-image" src="" alt="Product" class="w-full h-96 object-cover rounded-lg shadow-lg">
+        </div>
+        <div class="md:w-1/2 mt-4 md:mt-0">
+          <h2 id="pd-name" class="text-2xl font-bold text-gray-800 mb-4"></h2>
+          <div class="mb-4 flex items-baseline gap-2">
+            <span id="pd-price" class="text-red-600 font-bold text-3xl">$0.00</span>
+            <span id="pd-old-price" class="text-gray-400 line-through text-lg hidden">$0.00</span>
+            <span id="pd-discount" class="text-green-600 text-sm font-semibold hidden">-0%</span>
+          </div>
+          <div id="pd-rating" class="text-yellow-400 mb-4">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <span class="text-gray-600 text-sm ml-2">(245 reviews)</span>
+          </div>
+          
+          <div class="border-t border-b py-4 my-4">
+            <div class="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span class="text-gray-600">Brand:</span>
+                <span id="pd-brand" class="font-semibold ml-2">Moogame</span>
+              </div>
+              <div>
+                <span class="text-gray-600">Availability:</span>
+                <span id="pd-stock" class="text-green-600 font-semibold ml-2">In Stock</span>
+              </div>
+              <div>
+                <span class="text-gray-600">Shipping:</span>
+                <span class="text-green-600 font-semibold ml-2">Free</span>
+              </div>
+              <div>
+                <span class="text-gray-600">Warranty:</span>
+                <span class="font-semibold ml-2">1 Year</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Quantity</label>
+            <div class="inline-flex items-center border rounded">
+              <button id="pd-qty-dec" class="px-4 py-2 text-gray-700 hover:bg-gray-100">-</button>
+              <input id="pd-qty" type="number" value="1" min="1" class="w-20 text-center py-2 outline-none border-x">
+              <button id="pd-qty-inc" class="px-4 py-2 text-gray-700 hover:bg-gray-100">+</button>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button id="pd-add" class="flex-1 bg-red-600 text-white py-3 px-6 rounded-lg hover:bg-red-700 font-semibold text-lg">
+              <i class="fas fa-cart-plus mr-2"></i> Add to Cart
+            </button>
+            <button class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <i class="far fa-heart text-xl"></i>
+            </button>
+          </div>
+
+          <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+            <h4 class="font-semibold mb-2">Key Features:</h4>
+            <ul id="pd-features" class="text-sm text-gray-700 space-y-1">
+              <li><i class="fas fa-check text-green-600 mr-2"></i> High-quality materials</li>
+              <li><i class="fas fa-check text-green-600 mr-2"></i> Advanced technology</li>
+              <li><i class="fas fa-check text-green-600 mr-2"></i> Premium design</li>
+              <li><i class="fas fa-check text-green-600 mr-2"></i> Warranty included</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Related Products Section -->
+      <div class="border-t pt-6">
+        <h3 class="text-xl font-bold mb-4">Related Products</h3>
+        <div id="pd-related-products" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <!-- Related products will be injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pd-overlay" class="absolute inset-0"></div>
+  <style>
+    #product-detail-modal > .bg-white { position: relative; z-index: 10; }
+  </style>
+</div>
+
+<footer class="bg-gray-900 text-white py-12 px-4">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-xl font-bold mb-4">Moogame</h3>
+        <p class="text-gray-400">Your ultimate gaming destination for consoles, games, and accessories.</p>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Quick Links</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">Home</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Shop</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+        </ul>
+      </div>    
+      <div>
+        <h4 class="font-bold mb-4">Customer Service</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-gray-400 hover:text-white">FAQs</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Shipping & Returns</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+          <li><a href="#" class="text-gray-400    hover:text-white">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold mb-4">Connect With Us</h4>
+        <div class="flex space-x-4 mb-4">
+          <a href="https://l.instagram.com/?u=https%3A%2F%2Fwa.me%2F250790581058%3Ftext%3DChat%2BWith%2BMoo%2BGame%26fbclid%3DPAZXh0bgNhZW0CMTEAAaezd0BoTaQbuS7AhT-pj_PId80s0fK8VL8yolCk4JkvNjIg9TyoGsGicpjB_w_aem_0gHZy68Vj_lR-gITfLML7w&e=AT2A-Go-PFpmdJJ0fFuOCKJ8OkjASOLLzvHWx4x1oc5cD5Xx9E2rcDXX3y9Dnkf-ZfhiMu8Z_k2MtbBa6Cr7Uf2MP6o8a4jEHeJqDC_pK3-NSzgF3Lze9UCtFw" class="text-gray-400 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter"></i></a>
+          <a href="https://l.instagram.com/?u=https%3A%2F%2Fwa.me%2F250790581058%3Ftext%3DChat%2BWith%2BMoo%2BGame%26fbclid%3DPAZXh0bgNhZW0CMTEAAaezd0BoTaQbuS7AhT-pj_PId80s0fK8VL8yolCk4JkvNjIg9TyoGsGicpjB_w_aem_0gHZy68Vj_lR-gITfLML7w&e=AT2A-Go-PFpmdJJ0fFuOCKJ8OkjASOLLzvHWx4x1oc5cD5Xx9E2rcDXX3y9Dnkf-ZfhiMu8Z_k2MtbBa6Cr7Uf2MP6o8a4jEHeJqDC_pK3-NSzgF3Lze9UCtFw" class="text-gray-400 hover:text-white"><i class="fab fa-instagram"></i></a>
+          <a href="https://youtu.be/RN5F0VY6tv4?list=RDRN5F0VY6tv4" class="text-gray-400 hover:text-white"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="text-gray-400">Subscribe to our newsletter</p>
+        <div class="mt-2 flex">
+          <input type="email" placeholder="Your email" class="px-4 py-2 rounded-l w-full text-gray-900">
+          <button class="bg-red-600 hover:bg-red-700 px-4 rounded-r">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+      <p>&copy; 2025 Moogame. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+<script>
+  // Countdown Timer
+  function updateCountdown() {
+    const now = new Date();
+    const target = new Date();
+    target.setDate(now.getDate() + 3); // 3 days from now
+    target.setHours(23, 59, 59, 0);
+    
+    const diff = target - now;
+    
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+  
+  // Update countdown every second
+  setInterval(updateCountdown, 1000);
+  updateCountdown(); // Initial call
+
+  // Smooth scrolling for navigation
+  document.addEventListener('DOMContentLoaded', function() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('data-section');
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+          const headerOffset = 100;
+          const elementPosition = targetSection.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Update active link
+          navLinks.forEach(link => link.classList.remove('text-red-600'));
+          this.classList.add('text-red-600');
+        }
+      });
+    });
+    
+    // Initialize Swiper
+    var swiper = new Swiper(".heroSwiper", {
+      loop: true,
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
+    // Flash deals live countdown (ends in ~12 hours)
+    const flashTarget = new Date(Date.now() + 12 * 60 * 60 * 1000);
+    function updateFlashDealsTimer() {
+      const now = new Date();
+      let diff = Math.max(0, flashTarget - now);
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * 60 * 60 * 1000;
+      const minutes = Math.floor(diff / (1000 * 60));
+      diff -= minutes * 60 * 1000;
+      const seconds = Math.floor(diff / 1000);
+      const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = String(val).padStart(2, '0'); };
+      set('flash-hours', hours);
+      set('flash-minutes', minutes);
+      set('flash-seconds', seconds);
+    }
+    setInterval(updateFlashDealsTimer, 1000);
+    updateFlashDealsTimer();
+
+    // Flash deals stock animation
+    function animateFlashStock(idBar, idSold, total, step) {
+      const bar = document.getElementById(idBar);
+      const soldEl = document.getElementById(idSold);
+      if (!bar || !soldEl) return;
+      let sold = parseInt(soldEl.textContent || '0', 10);
+      setInterval(() => {
+        sold = Math.min(total, sold + Math.floor(Math.random() * step + 1));
+        const pct = Math.floor((sold / total) * 100);
+        bar.style.width = pct + '%';
+        soldEl.textContent = String(sold);
+      }, 4000);
+    }
+    animateFlashStock('flash-stock-1', 'flash-sold-1', 180, 5);
+    animateFlashStock('flash-stock-2', 'flash-sold-2', 160, 4);
+
+    // Browse Products sorting
+    const sortSelect = document.getElementById('browse-sort');
+    const grid = document.getElementById('browse-grid');
+    function sortGrid() {
+      if (!grid || !sortSelect) return;
+      const items = Array.from(grid.children);
+      const mode = sortSelect.value;
+      let sorted = items;
+      if (mode === 'price-asc') {
+        sorted = items.sort((a, b) => parseFloat(a.dataset.price) - parseFloat(b.dataset.price));
+      } else if (mode === 'price-desc') {
+        sorted = items.sort((a, b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
+      } else if (mode === 'rating-desc') {
+        sorted = items.sort((a, b) => parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating));
+      }
+      sorted.forEach(el => grid.appendChild(el));
+    }
+    if (sortSelect) {
+      sortSelect.addEventListener('change', sortGrid);
+    }
+
+    // Browse Products filter logic
+    const btnApply = document.getElementById('filter-apply');
+    function applyFilters() {
+      const minEl = document.getElementById('filter-min');
+      const maxEl = document.getElementById('filter-max');
+      const ratingEl = document.querySelector('input[name="filter-rating"]:checked');
+      const brandEls = Array.from(document.querySelectorAll('input[name="filter-brand"]:checked'));
+      const min = minEl && minEl.value ? parseFloat(minEl.value) : -Infinity;
+      const max = maxEl && maxEl.value ? parseFloat(maxEl.value) : Infinity;
+      const minRating = ratingEl && ratingEl.value ? parseFloat(ratingEl.value) : 0;
+      const brands = brandEls.map(b => b.value);
+      Array.from(grid.children).forEach(card => {
+        const price = parseFloat(card.dataset.price || '0');
+        const rating = parseFloat(card.dataset.rating || '0');
+        const brand = card.dataset.brand || '';
+        const priceOk = price >= min && price <= max;
+        const ratingOk = rating >= minRating;
+        const brandOk = brands.length === 0 || brands.includes(brand);
+        card.style.display = (priceOk && ratingOk && brandOk) ? '' : 'none';
+      });
+    }
+    if (btnApply) btnApply.addEventListener('click', applyFilters);
+
+    // Cart with localStorage
+    const CART_KEY = 'cartItems';
+    function loadCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch { return []; }
+    }
+    function saveCart(items) { localStorage.setItem(CART_KEY, JSON.stringify(items)); }
+    function formatPrice(price) {
+      return new Intl.NumberFormat('en-US').format(price);
+    }
+    function getPriceFromEl(card) {
+      const priceEl = card.querySelector('.text-red-600');
+      if (!priceEl) return 0;
+      const num = priceEl.textContent.replace(/[^0-9.]/g, '');
+      return parseFloat(num || '0');
+    }
+    function getCardData(card) {
+      const name = card && card.querySelector('h3') ? card.querySelector('h3').textContent : 'Item';
+      const price = getPriceFromEl(card);
+      const imgEl = card.querySelector('img');
+      const image = imgEl ? imgEl.src : '';
+      const oldEl = card.querySelector('.line-through');
+      const oldPrice = oldEl ? oldEl.textContent.replace(/[^0-9.]/g, '') : '';
+      const discountEl = card.querySelector('.text-green-600.text-xs.font-semibold');
+      const discount = discountEl ? discountEl.textContent : '';
+      return { name, price, image, oldPrice, discount };
+    }
+    function renderCart() {
+      const items = loadCart();
+      const countEl = document.getElementById('cart-count');
+      const dropdown = document.getElementById('cart-dropdown');
+      const totalEl = document.getElementById('cart-total');
+      if (countEl) countEl.textContent = String(items.reduce((a, i) => a + i.qty, 0));
+      if (!dropdown) return;
+      if (items.length === 0) {
+        dropdown.innerHTML = '<p class="text-center py-4 text-gray-600">Your cart is empty</p>';
+        if (totalEl) totalEl.textContent = '0 rwf';
+        return;
+      }
+      dropdown.innerHTML = items.map(i => `
+        <div class="flex items-center justify-between py-2 border-b">
+          <div class="flex items-center pr-2 min-w-0">
+            ${i.image ? `<img src="${i.image}" class="w-10 h-10 object-cover rounded mr-2">` : ''}
+            <div class="min-w-0">
+              <div class="text-sm font-medium text-gray-800 truncate">${i.name}</div>
+              <div class="text-xs text-gray-500">${formatPrice(i.price)} rwf × ${i.qty}</div>
+            </div>
+          </div>
+          <div class="text-sm font-semibold text-gray-900">${formatPrice(i.price * i.qty)} rwf</div>
+        </div>
+      `).join('');
+      const total = items.reduce((sum, i) => sum + i.price * i.qty, 0);
+      if (totalEl) totalEl.textContent = `${formatPrice(total)} rwf`;
+    }
+    function addToCart(item) {
+      const items = loadCart();
+      const idx = items.findIndex(i => i.name === item.name);
+      if (idx >= 0) items[idx].qty += 1; else items.push({ name: item.name, price: item.price, image: item.image || '', oldPrice: item.oldPrice || '', discount: item.discount || '', qty: 1 });
+      saveCart(items);
+      renderCart();
+    }
+    renderCart();
+
+    // Full Cart modal logic
+    const cartTrigger = document.getElementById('cart-trigger');
+    const cartModal = document.getElementById('cart-modal');
+    const cmClose = document.getElementById('cm-close');
+    const cmOverlay = document.getElementById('cm-overlay');
+    const cmItems = document.getElementById('cm-items');
+    const cmTotal = document.getElementById('cm-total');
+    const cmClear = document.getElementById('cm-clear');
+    const cmCheckout = document.getElementById('cm-checkout');
+
+    function openCartModal() {
+      if (!cartModal) return;
+      renderCartModal();
+      cartModal.classList.remove('hidden');
+      cartModal.classList.add('flex');
+    }
+    function closeCartModal() {
+      if (!cartModal) return;
+      cartModal.classList.add('hidden');
+      cartModal.classList.remove('flex');
+    }
+    function renderCartModal() {
+      const items = loadCart();
+      if (!cmItems || !cmTotal) return;
+      if (items.length === 0) {
+        cmItems.innerHTML = '<p class="text-center py-6 text-gray-600">Your cart is empty</p>';
+        cmTotal.textContent = '0 rwf';
+        return;
+      }
+      cmItems.innerHTML = items.map(i => `
+        <div class="flex items-center justify-between py-3 border-b" data-name="${i.name}">
+          <div class="flex items-center min-w-0 pr-3">
+            ${i.image ? `<img src="${i.image}" class="w-12 h-12 object-cover rounded mr-3">` : ''}
+            <div class="min-w-0">
+              <button type="button" class="cm-view text-left text-sm font-medium text-gray-800 hover:underline truncate">${i.name}</button>
+              <div class="text-xs text-gray-500">${formatPrice(i.price)} rwf each</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="cm-dec px-2 py-1 border rounded">-</button>
+            <span class="cm-qty w-8 text-center">${i.qty}</span>
+            <button class="cm-inc px-2 py-1 border rounded">+</button>
+          </div>
+          <div class="w-24 text-right font-semibold text-gray-900">${formatPrice(i.price * i.qty)} rwf</div>
+          <button class="cm-remove text-red-600 hover:underline text-sm">Remove</button>
+        </div>
+      `).join('');
+      const total = items.reduce((sum, it) => sum + it.price * it.qty, 0);
+      cmTotal.textContent = `${formatPrice(total)} rwf`;
+    }
+    function setItemQty(name, qty) {
+      const items = loadCart();
+      const idx = items.findIndex(i => i.name === name);
+      if (idx === -1) return;
+      if (qty <= 0) { items.splice(idx, 1); } else { items[idx].qty = qty; }
+      saveCart(items);
+      renderCart();
+      renderCartModal();
+    }
+    function removeItem(name) { setItemQty(name, 0); }
+    if (cartTrigger) cartTrigger.addEventListener('click', (e)=>{ e.preventDefault(); openCartModal(); });
+    if (cmClose) cmClose.addEventListener('click', closeCartModal);
+    if (cmOverlay) cmOverlay.addEventListener('click', closeCartModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeCartModal(); });
+    if (cmClear) cmClear.addEventListener('click', ()=>{ saveCart([]); renderCart(); renderCartModal(); });
+    if (cmCheckout) cmCheckout.addEventListener('click', () => {
+      const items = loadCart();
+      if (items.length === 0) {
+        alert('Your cart is empty. Please add items before checkout.');
+        return;
+      }
+      const total = items.reduce((sum, it) => sum + it.price * it.qty, 0);
+      alert(`Thank you for your purchase!\n\nTotal: ${formatPrice(total)} rwf\n\nOrder will be processed shortly.`);
+      saveCart([]);
+      renderCart();
+      renderCartModal();
+      closeCartModal();
+    });
+    if (cmItems) cmItems.addEventListener('click', (e)=>{
+      const row = e.target.closest('[data-name]');
+      if (!row) return;
+      const name = row.getAttribute('data-name');
+      if (e.target.classList.contains('cm-inc')) {
+        const items = loadCart();
+        const item = items.find(i => i.name === name);
+        if (item) setItemQty(name, item.qty + 1);
+      } else if (e.target.classList.contains('cm-dec')) {
+        const items = loadCart();
+        const item = items.find(i => i.name === name);
+        if (item) setItemQty(name, item.qty - 1);
+      } else if (e.target.classList.contains('cm-remove')) {
+        removeItem(name);
+      } else if (e.target.classList.contains('cm-view') || e.target.closest('.cm-view')) {
+        const items = loadCart();
+        const item = items.find(i => i.name === name);
+        if (item) openProductModalFromItem(item);
+      }
+    });
+
+    // Product Quick View Modal
+    const modal = document.getElementById('product-modal');
+    const pmTitle = document.getElementById('pm-title');
+    const pmImage = document.getElementById('pm-image');
+    const pmPrice = document.getElementById('pm-price');
+    const pmOldPrice = document.getElementById('pm-old-price');
+    const pmDiscount = document.getElementById('pm-discount');
+    const pmRating = document.getElementById('pm-rating');
+    const pmQty = document.getElementById('pm-qty');
+    const pmQtyInc = document.getElementById('pm-qty-inc');
+    const pmQtyDec = document.getElementById('pm-qty-dec');
+    const pmAdd = document.getElementById('pm-add');
+    const pmClose = document.getElementById('pm-close');
+    const pmOverlay = document.getElementById('pm-overlay');
+    let pmCurrent = { name: '', price: 0, image: '', oldPrice: '', discount: '' };
+
+    function openProductModalFromCard(card) {
+      if (!modal || !card) return;
+      const data = getCardData(card);
+      pmCurrent = data;
+      pmTitle.textContent = data.name;
+      pmPrice.textContent = `${formatPrice(data.price)} rwf`;
+      if (data.image) pmImage.src = data.image;
+      if (data.oldPrice) { pmOldPrice.textContent = `${formatPrice(parseFloat(data.oldPrice))} rwf`; pmOldPrice.classList.remove('hidden'); } else { pmOldPrice.classList.add('hidden'); }
+      if (data.discount) { pmDiscount.textContent = data.discount; pmDiscount.classList.remove('hidden'); } else { pmDiscount.classList.add('hidden'); }
+      pmRating.classList.add('hidden');
+      pmQty.value = 1;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function openProductModalFromItem(item) {
+      if (!modal || !item) return;
+      pmCurrent = { name: item.name, price: item.price, image: item.image || '', oldPrice: item.oldPrice || '', discount: item.discount || '' };
+      pmTitle.textContent = item.name;
+      pmPrice.textContent = `${formatPrice(item.price)} rwf`;
+      if (item.image) pmImage.src = item.image; else pmImage.src = '';
+      if (item.oldPrice) { pmOldPrice.textContent = `${formatPrice(parseFloat(item.oldPrice))} rwf`; pmOldPrice.classList.remove('hidden'); } else { pmOldPrice.classList.add('hidden'); }
+      if (item.discount) { pmDiscount.textContent = item.discount; pmDiscount.classList.remove('hidden'); } else { pmDiscount.classList.add('hidden'); }
+      pmRating.classList.add('hidden');
+      pmQty.value = 1;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeProductModal() {
+      if (!modal) return;
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+    if (pmQtyInc) pmQtyInc.addEventListener('click', () => { pmQty.value = String(Math.max(1, (parseInt(pmQty.value||'1',10)+1))); });
+    if (pmQtyDec) pmQtyDec.addEventListener('click', () => { pmQty.value = String(Math.max(1, (parseInt(pmQty.value||'1',10)-1))); });
+    if (pmClose) pmClose.addEventListener('click', closeProductModal);
+    if (pmOverlay) pmOverlay.addEventListener('click', closeProductModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeProductModal(); });
+    if (pmAdd) pmAdd.addEventListener('click', () => {
+      const qty = Math.max(1, parseInt(pmQty.value||'1',10));
+      for (let i=0;i<qty;i++) addToCart(pmCurrent);
+      showAddConfirm(pmCurrent, qty);
+      closeProductModal();
+    });
+
+    // Delegate clicks on product card Add buttons (with cart icon), exclude modal button
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('button');
+      if (!btn || btn.id === 'pm-add') return;
+      const hasCartIcon = btn.querySelector('.fa-cart-plus') || (e.target && e.target.classList && e.target.classList.contains('fa-cart-plus'));
+      if (!hasCartIcon) return;
+      const card = btn.closest('.bg-white');
+      if (!card) return;
+      // Open product modal populated from this card
+      openProductModalFromCard(card);
+    });
+
+    // Add-to-Cart confirmation panel logic
+    const ac = document.getElementById('add-confirm');
+    const acClose = document.getElementById('ac-close');
+    const acView = document.getElementById('ac-view');
+    const acContinue = document.getElementById('ac-continue');
+    function showAddConfirm(item, qty) {
+      if (!ac) return;
+      const img = document.getElementById('ac-image');
+      const nameEl = document.getElementById('ac-name');
+      const qtyEl = document.getElementById('ac-qty');
+      const priceEl = document.getElementById('ac-price');
+      if (img) img.src = item.image || '';
+      if (nameEl) nameEl.textContent = item.name;
+      if (qtyEl) qtyEl.textContent = String(qty);
+      if (priceEl) priceEl.textContent = formatPrice(item.price);
+      ac.classList.remove('hidden');
+      clearTimeout(showAddConfirm._t);
+      showAddConfirm._t = setTimeout(()=>{ ac.classList.add('hidden'); }, 5000);
+    }
+    if (acClose) acClose.addEventListener('click', ()=> ac.classList.add('hidden'));
+    if (acContinue) acContinue.addEventListener('click', ()=> ac.classList.add('hidden'));
+    if (acView) acView.addEventListener('click', (e)=>{ e.preventDefault(); ac.classList.add('hidden'); openCartModal(); });
+
+    // Product Detail Modal with Related Products
+    const pdModal = document.getElementById('product-detail-modal');
+    const pdTitle = document.getElementById('pd-title');
+    const pdName = document.getElementById('pd-name');
+    const pdImage = document.getElementById('pd-image');
+    const pdPrice = document.getElementById('pd-price');
+    const pdOldPrice = document.getElementById('pd-old-price');
+    const pdDiscount = document.getElementById('pd-discount');
+    const pdRating = document.getElementById('pd-rating');
+    const pdBrand = document.getElementById('pd-brand');
+    const pdStock = document.getElementById('pd-stock');
+    const pdFeatures = document.getElementById('pd-features');
+    const pdRelatedProducts = document.getElementById('pd-related-products');
+    const pdQty = document.getElementById('pd-qty');
+    const pdQtyInc = document.getElementById('pd-qty-inc');
+    const pdQtyDec = document.getElementById('pd-qty-dec');
+    const pdAdd = document.getElementById('pd-add');
+    const pdClose = document.getElementById('pd-close');
+    const pdOverlay = document.getElementById('pd-overlay');
+    let pdCurrent = { name: '', price: 0, image: '', oldPrice: '', discount: '', category: '' };
+    let allProducts = [];
+
+    // Get all products from the page
+    function collectAllProducts() {
+      allProducts = [];
+      document.querySelectorAll('div.rounded-lg.overflow-hidden.shadow').forEach(card => {
+        if (card.querySelector('h3') && card.querySelector('.text-red-600.font-bold')) {
+          const data = getCardData(card);
+          const section = card.closest('section');
+          data.category = section ? section.id : 'general';
+          allProducts.push(data);
+        }
+      });
+    }
+
+    function openProductDetailModal(card) {
+      if (!pdModal || !card) return;
+      collectAllProducts();
+      const data = getCardData(card);
+      pdCurrent = data;
+      
+      // Find category
+      const section = card.closest('section');
+      pdCurrent.category = section ? section.id : 'general';
+      
+      // Populate modal
+      pdTitle.textContent = 'Product Details';
+      pdName.textContent = data.name;
+      pdPrice.textContent = `${formatPrice(data.price)} rwf`;
+      if (data.image) pdImage.src = data.image;
+      if (data.oldPrice) { 
+        pdOldPrice.textContent = `${formatPrice(parseFloat(data.oldPrice))} rwf`; 
+        pdOldPrice.classList.remove('hidden'); 
+      } else { 
+        pdOldPrice.classList.add('hidden'); 
+      }
+      if (data.discount) { 
+        pdDiscount.textContent = data.discount; 
+        pdDiscount.classList.remove('hidden'); 
+      } else { 
+        pdDiscount.classList.add('hidden'); 
+      }
+      pdQty.value = 1;
+      
+      // Show modal
+      pdModal.classList.remove('hidden');
+      pdModal.classList.add('flex');
+      
+      // Load related products
+      loadRelatedProducts(pdCurrent.name);
+    }
+
+    function loadRelatedProducts(excludeName) {
+      if (!pdRelatedProducts) return;
+      // Get 6 products from the same category, excluding current product
+      const related = allProducts
+        .filter(p => p.category === pdCurrent.category && p.name !== excludeName)
+        .slice(0, 6);
+      
+      if (related.length === 0) {
+        // If no products in same category, get random products
+        const random = allProducts
+          .filter(p => p.name !== excludeName)
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 6);
+        related.push(...random);
+      }
+      
+      pdRelatedProducts.innerHTML = related.map(product => `
+        <div class="bg-gray-50 rounded-lg overflow-hidden shadow hover:shadow-lg transition-shadow cursor-pointer product-card" data-card-product="${encodeURIComponent(JSON.stringify(product))}">
+          <div class="relative">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-32 object-cover">
+          </div>
+          <div class="p-3">
+            <h4 class="font-semibold text-xs mb-1 line-clamp-2">${product.name}</h4>
+            <div class="flex items-center mb-2">
+              <span class="text-red-600 font-bold text-sm">${formatPrice(product.price)} rwf</span>
+              ${product.oldPrice ? `<span class="text-gray-400 line-through text-xs ml-1">${formatPrice(parseFloat(product.oldPrice))} rwf</span>` : ''}
+            </div>
+            <button class="w-full bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 text-xs mt-1">
+              <i class="fas fa-cart-plus mr-1"></i> Quick Add
+            </button>
+          </div>
+        </div>
+      `).join('');
+      
+      // Add click handlers to related products
+      pdRelatedProducts.querySelectorAll('.product-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const productData = JSON.parse(decodeURIComponent(this.getAttribute('data-card-product')));
+          openProductDetailFromData(productData);
+        });
+      });
+    }
+
+    function openProductDetailFromData(product) {
+      pdCurrent = product;
+      pdTitle.textContent = 'Product Details';
+      pdName.textContent = product.name;
+      pdPrice.textContent = `${formatPrice(product.price)} rwf`;
+      if (product.image) pdImage.src = product.image;
+      if (product.oldPrice) { 
+        pdOldPrice.textContent = `${formatPrice(parseFloat(product.oldPrice))} rwf`; 
+        pdOldPrice.classList.remove('hidden'); 
+      } else { 
+        pdOldPrice.classList.add('hidden'); 
+      }
+      if (product.discount) { 
+        pdDiscount.textContent = product.discount; 
+        pdDiscount.classList.remove('hidden'); 
+      } else { 
+        pdDiscount.classList.add('hidden'); 
+      }
+      pdQty.value = 1;
+      loadRelatedProducts(product.name);
+    }
+
+    function closeProductDetailModal() {
+      if (!pdModal) return;
+      pdModal.classList.add('hidden');
+      pdModal.classList.remove('flex');
+    }
+
+    if (pdQtyInc) pdQtyInc.addEventListener('click', () => { 
+      pdQty.value = String(Math.max(1, (parseInt(pdQty.value||'1',10)+1))); 
+    });
+    if (pdQtyDec) pdQtyDec.addEventListener('click', () => { 
+      pdQty.value = String(Math.max(1, (parseInt(pdQty.value||'1',10)-1))); 
+    });
+    if (pdClose) pdClose.addEventListener('click', closeProductDetailModal);
+    if (pdOverlay) pdOverlay.addEventListener('click', closeProductDetailModal);
+    document.addEventListener('keydown', (e)=>{ 
+      if(e.key==='Escape') { 
+        closeProductDetailModal(); 
+        closeProductModal(); 
+      } 
+    });
+    if (pdAdd) pdAdd.addEventListener('click', () => {
+      const qty = Math.max(1, parseInt(pdQty.value||'1',10));
+      for (let i=0;i<qty;i++) addToCart(pdCurrent);
+      showAddConfirm(pdCurrent, qty);
+      closeProductDetailModal();
+    });
+
+    // Delegate clicks on product cards (image or title) to open detail modal
+    document.addEventListener('click', function(e) {
+      const card = e.target.closest('div.rounded-lg.overflow-hidden.shadow');
+      if (!card) return;
+      // Check if it's a product card (has image and title)
+      if (!card.querySelector('img') || !card.querySelector('h3')) return;
+      const btn = e.target.closest('button');
+      // Don't trigger if clicking on Add button
+      if (btn && (btn.querySelector('.fa-cart-plus') || e.target.classList.contains('fa-cart-plus'))) {
+        return;
+      }
+      // Trigger on clicking image or title
+      if (e.target.tagName === 'IMG' || e.target.tagName === 'H3') {
+        openProductDetailModal(card);
+      }
+    });
+
+    // Smooth scrolling for navigation links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetSection = document.querySelector(targetId);
+      
+      if (targetSection) {
+        // Update active state in navigation
+        document.querySelectorAll('.nav-link').forEach(navLink => {
+          navLink.classList.remove('text-red-600');
+          navLink.classList.add('text-gray-700');
+        });
+        this.classList.remove('text-gray-700');
+        this.classList.add('text-red-600');
+        
+        // Smooth scroll to section
+        window.scrollTo({
+          top: targetSection.offsetTop - 100, // Adjust for header height
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+  
+  // Highlight current section in navigation on scroll
+  const sections = document.querySelectorAll('section[id]');
+  
+  window.addEventListener('scroll', () => {
+    let current = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 150;
+      const sectionHeight = section.offsetHeight;
+      
+      if (pageYOffset >= sectionTop && pageYOffset < sectionTop + sectionHeight) {
+        current = section.getAttribute('id');
+      }
+    });
+    
+    if (current) {
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.classList.remove('text-red-600');
+        link.classList.add('text-gray-700');
+        
+        if (link.getAttribute('data-section') === current) {
+          link.classList.remove('text-gray-700');
+          link.classList.add('text-red-600');
+        }
+      });
+    }
+  });
+  
+  // (removed legacy alert add-to-cart handler)
+  });
+</script>
+
+</body>
+</html>
